@@ -1,0 +1,90 @@
+
+create database cr09_matthias_liszt_carrental character set utf8mb4;
+
+create table car(
+ carId int,
+ carType varchar(32),
+ capacity int, 
+ power int, 
+ seats int, 
+ prodYear year,
+ tankCapacity int,
+ primary key(carId)
+);
+
+create table carRent(
+ transactionId int, 
+ userId int,
+ carId int,
+ primary key(transactionId)
+);
+
+create table user(
+ userId int, 
+ name varchar(16),
+ surname varchar(16),
+ birthday date,
+ primary key(userId)
+);
+
+create table verificiaton( 
+ userId int, 
+ documentNumber int, 
+ document varchar(32),
+ primary key(documentNumber)
+);
+
+create table carPrice(
+ carPriceId int,
+ carId int, 
+ carPrice int,
+ primary key(carPriceId)
+);
+
+create table carTank(
+ tankId int, 
+ carId int, 
+ volume int,
+ primary key(tankId)
+);
+
+create table carDamage(
+ reportId int, 
+ carId int,
+ damageId int, 
+ transactionId int,
+ primary key(reportId)
+);
+
+create table damages(
+ damageId int,
+ name varchar(21),
+ description varchar(1024),
+ primary key(damageId)
+);
+
+create table payment(
+ paymentId int,
+ transactionId int,
+ userId int,  
+ price int, 
+ paid tinyint,
+ primary key(paymentId) 
+);
+
+create table damageCalculation(
+ calculationId int,
+ transactionId int, 
+ carType varchar(32),
+ price int, 
+ primary key(calculationId)
+);
+
+create table additionalCharges(
+ aChargeId int, 
+ transactionId int, 
+ price int, 
+ primary key (aChargeId)
+);
+
+
