@@ -27,7 +27,7 @@ create table user(
  primary key(userId)
 );
 
-create table verificiaton( 
+create table verification( 
  userId int, 
  documentNumber int, 
  document varchar(32),
@@ -45,6 +45,7 @@ create table carTank(
  tankId int, 
  carId int, 
  volume int,
+ transactionId int,
  primary key(tankId)
 );
 
@@ -69,6 +70,7 @@ create table payment(
  userId int,  
  price int, 
  paid tinyint,
+ serviceId int,
  primary key(paymentId) 
 );
 
@@ -87,4 +89,11 @@ create table additionalCharges(
  primary key (aChargeId)
 );
 
+create table paymentService(
+ serviceId int, 
+ name varchar(16),
+ cardNumber int,
+ userId int,
+ primary key (serviceId)
+);
 

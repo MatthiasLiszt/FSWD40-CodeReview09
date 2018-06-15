@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 15, 2018 at 04:56 PM
+-- Generation Time: Jun 15, 2018 at 06:58 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.2.5
 
@@ -50,6 +50,16 @@ CREATE TABLE `car` (
   `tankCapacity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `car`
+--
+
+INSERT INTO `car` (`carId`, `carType`, `capacity`, `power`, `seats`, `prodYear`, `tankCapacity`) VALUES
+(1, 'Fiat', 2, 50, 6, 1991, 50),
+(2, 'Mercedes', 4, 100, 6, 1997, 90),
+(3, 'VW', 3, 70, 6, 1993, 60),
+(4, 'Opel', 3, 80, 6, 1996, 70);
+
 -- --------------------------------------------------------
 
 --
@@ -63,6 +73,13 @@ CREATE TABLE `carDamage` (
   `transactionId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `carDamage`
+--
+
+INSERT INTO `carDamage` (`reportId`, `carId`, `damageId`, `transactionId`) VALUES
+(1, 1, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -74,6 +91,16 @@ CREATE TABLE `carPrice` (
   `carId` int(11) DEFAULT NULL,
   `carPrice` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `carPrice`
+--
+
+INSERT INTO `carPrice` (`carPriceId`, `carId`, `carPrice`) VALUES
+(1, 1, 50),
+(2, 2, 100),
+(3, 3, 50),
+(4, 4, 50);
 
 -- --------------------------------------------------------
 
@@ -87,6 +114,14 @@ CREATE TABLE `carRent` (
   `carId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `carRent`
+--
+
+INSERT INTO `carRent` (`transactionId`, `userId`, `carId`) VALUES
+(1, 1, 1),
+(2, 2, 4);
+
 -- --------------------------------------------------------
 
 --
@@ -96,8 +131,17 @@ CREATE TABLE `carRent` (
 CREATE TABLE `carTank` (
   `tankId` int(11) NOT NULL,
   `carId` int(11) DEFAULT NULL,
-  `volume` int(11) DEFAULT NULL
+  `volume` int(11) DEFAULT NULL,
+  `transactionId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `carTank`
+--
+
+INSERT INTO `carTank` (`tankId`, `carId`, `volume`, `transactionId`) VALUES
+(1, 1, 20, 1),
+(2, 4, 20, 2);
 
 -- --------------------------------------------------------
 
@@ -112,6 +156,13 @@ CREATE TABLE `damageCalculation` (
   `price` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `damageCalculation`
+--
+
+INSERT INTO `damageCalculation` (`calculationId`, `transactionId`, `carType`, `price`) VALUES
+(1, 1, 'Fiat', 1800);
+
 -- --------------------------------------------------------
 
 --
@@ -124,6 +175,13 @@ CREATE TABLE `damages` (
   `description` varchar(1024) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `damages`
+--
+
+INSERT INTO `damages` (`damageId`, `name`, `description`) VALUES
+(1, 'parking accident', 'damaged right front light');
+
 -- --------------------------------------------------------
 
 --
@@ -135,8 +193,39 @@ CREATE TABLE `payment` (
   `transactionId` int(11) DEFAULT NULL,
   `userId` int(11) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
-  `paid` tinyint(4) DEFAULT NULL
+  `paid` tinyint(4) DEFAULT NULL,
+  `serviceId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`paymentId`, `transactionId`, `userId`, `price`, `paid`, `serviceId`) VALUES
+(1, 1, 1, 2000, 0, 1),
+(2, 2, 1, 1000, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `paymentService`
+--
+
+CREATE TABLE `paymentService` (
+  `serviceId` int(11) NOT NULL,
+  `name` varchar(16) DEFAULT NULL,
+  `cardNumber` int(11) DEFAULT NULL,
+  `userId` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `paymentService`
+--
+
+INSERT INTO `paymentService` (`serviceId`, `name`, `cardNumber`, `userId`) VALUES
+(1, 'Visa', 123456345, 1),
+(2, 'Visa', 523456445, 2),
+(3, 'Visa', 923456543, 3);
 
 -- --------------------------------------------------------
 
@@ -151,17 +240,35 @@ CREATE TABLE `user` (
   `birthday` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`userId`, `name`, `surname`, `birthday`) VALUES
+(1, 'Max', 'Boehm', '1981-11-11'),
+(2, 'Stefan', 'Czerny', '1981-12-11'),
+(3, 'Andrzej', 'Pettyn', '1979-10-21');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `verificiaton`
+-- Table structure for table `verification`
 --
 
-CREATE TABLE `verificiaton` (
+CREATE TABLE `verification` (
   `userId` int(11) DEFAULT NULL,
   `documentNumber` int(11) NOT NULL,
   `document` varchar(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `verification`
+--
+
+INSERT INTO `verification` (`userId`, `documentNumber`, `document`) VALUES
+(1, 34523462, 'passport'),
+(2, 65435567, 'passport'),
+(3, 97834566, 'passport');
 
 --
 -- Indexes for dumped tables
@@ -222,15 +329,21 @@ ALTER TABLE `payment`
   ADD PRIMARY KEY (`paymentId`);
 
 --
+-- Indexes for table `paymentService`
+--
+ALTER TABLE `paymentService`
+  ADD PRIMARY KEY (`serviceId`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`userId`);
 
 --
--- Indexes for table `verificiaton`
+-- Indexes for table `verification`
 --
-ALTER TABLE `verificiaton`
+ALTER TABLE `verification`
   ADD PRIMARY KEY (`documentNumber`);
 COMMIT;
 

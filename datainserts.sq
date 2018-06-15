@@ -1,0 +1,75 @@
+
+insert into car (carId,carType,capacity,power,seats,prodYear,tankCapacity)
+values (1,'Fiat',1.5,50,6,1991,50);
+
+insert into car (carId,carType,capacity,power,seats,prodYear,tankCapacity)
+values (2,'Mercedes',3.5,100,6,1997,90);
+
+insert into car (carId,carType,capacity,power,seats,prodYear,tankCapacity)
+values (3,'VW',2.5,70,6,1993,60);
+
+insert into car (carId,carType,capacity,power,seats,prodYear,tankCapacity)
+values (4,'Opel',2.7,80,6,1996,70);
+
+insert into carRent (transactionId,userId,carId)
+values (1,1,1);
+
+insert into carRent (transactionId,userId,carId)
+values (2,2,4);
+
+insert into user (userId, name, surname, birthday)
+values (1,'Max','Boehm','1981-11-11');
+
+insert into user (userId, name, surname, birthday)
+values (2,'Stefan','Czerny','1981-12-11');
+
+insert into user (userId, name, surname, birthday)
+values (3,'Andrzej','Pettyn','1979-10-21');
+
+insert into verification (userId, documentNumber, document)
+values (1,34523462,'passport');
+
+insert into verification (userId, documentNumber, document)
+values (2,65435567,'passport');
+
+insert into verification (userId, documentNumber, document)
+values (3,97834566,'passport');
+
+insert into carPrice (carPriceId, carId, carPrice) values (1,1,50);
+insert into carPrice (carPriceId, carId, carPrice) values (2,2,100);
+insert into carPrice (carPriceId, carId, carPrice) values (3,3,50);
+insert into carPrice (carPriceId, carId, carPrice) values (4,4,50);
+
+insert into carTank (tankId, carId, volume, transactionId) values (1,1,20,1);
+insert into carTank (tankId, carId, volume, transactionId) values (2,4,20,2);
+
+insert into carDamage(reportId , carId , damageId, transactionId)
+values (1,1,1,1);
+
+insert into damages (damageId,name, description)
+values (1, 'parking accident', 'damaged right front light');
+
+insert into payment (paymentId,transactionId,userId ,  price, paid,serviceId)
+values (1,1,1,2000,0,1);
+
+insert into payment (paymentId,transactionId,userId ,  price, paid,serviceId)
+values (2,2,1,1000,1,1);
+
+insert into damageCalculation (calculationId, transactionId, carType, price)
+values (1,1,'Fiat',1800);
+
+insert into paymentService (serviceId,name,cardNumber,userId) 
+values (1,'Visa',123456345,1); 
+
+insert into paymentService (serviceId,name,cardNumber,userId) 
+values (2,'Visa',523456445,2); 
+
+insert into paymentService (serviceId,name,cardNumber,userId) 
+values (3,'Visa',923456543,3); 
+
+
+
+
+
+
+
